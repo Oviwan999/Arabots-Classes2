@@ -1,7 +1,7 @@
 print ('hola mundo')
 
 #solucion1
-print("Me encanta estudiar Python")
+ print("Me encanta estudiar Python")
 
 #solucion2
 print('Estudiar con "Python Total" es super divertido')
