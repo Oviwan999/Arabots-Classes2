@@ -1,0 +1,3 @@
+from random import choice
+
+palabras = ['touchdown', 'mango', 'jersey', ''
