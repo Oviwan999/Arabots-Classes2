@@ -1,6 +1,6 @@
 #solucion1
-""archivo = open("texto.txt")"
-"print(archivo.read())""
+archivo = open("Prueba (1).txt")
+print(archivo.read())
 
 #solicion2
 mi_archivo = open("texto.txt")
