@@ -42,7 +42,7 @@ def inicio():
     print(mi_cliente)
     opcion = 0
 
-    while opcion != "N":
+    while opcion != "e":
 
         print ("seleccione: Depositar (J) Retirar (o) Salir (e)")
         opcion = input()

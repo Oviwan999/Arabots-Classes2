@@ -1,0 +1,110 @@
+// Button Style Starts Here
+.btn {
+	-moz-user-select: none;
+	background: #000000 none repeat scroll 0 0;
+	border: 1px solid #000000;
+	border-radius: 7px;
+	color: #fff;
+	cursor: pointer;
+	display: inline-block;
+	font-size: 16px;
+	font-weight: 600;
+	line-height: 24px;
+	margin-bottom: 0;
+	padding: 12px 28px;
+	text-align: center;
+	touch-action: manipulation;
+	transition: all 0.3s ease 0s;
+	vertical-align: middle;
+	white-space: nowrap;
+
+	&:focus {
+		box-shadow: none !important;
+	}
+
+	&:hover {
+		background: #FFFFFF;
+		color: #000000;
+		border: 1px solid #707070;
+	}
+
+	&.btn_white {
+		background: #FFFFFF;
+		color: #000000;
+
+		&:hover {
+			background: #000000;
+			color: #fff;
+		}
+	}
+
+	&.btn_yellow {
+		background: #FFE817;
+		color: #000000;
+		border: 1px solid #FFE817;
+
+		&:hover {
+			background: #000000;
+			color: #FFFFFF;
+			border: 1px solid #000000;
+		}
+    }
+    &.btn_prev, &.btn_next {
+        i {
+            font-size: 16px;
+            margin-left: 5px;
+        }
+        &.swiper-button-disabled {
+            background-color: lighten(#000000, 30%);
+            color: white;
+            border-color: lighten(#000000, 30%);
+            &:hover {
+                cursor: default;
+            }
+        }
+    }
+
+	&.btn_prev {
+		i {
+		}
+	}
+
+	&.btn_next {
+		i {
+			font-size: 16px;
+			margin-left: 5px;
+		}
+	}
+}
+
+// Button Style Ends Here
+
+
+// Responsive
+/* === For Small Device ( 0px - 767px) == */
+@include small {
+	.btn {
+		font-size: 14px;
+
+		&.btn_prev {
+			i {
+				font-size: 14px;
+			}
+		}
+
+		&.btn_next {
+			i {
+				font-size: 14px;
+			}
+		}
+	}
+}
+
+/* === For Extra small Device ( 320px - 575px) == */
+@include ex_small {}
+
+/* === For Medium Device ( 768px - 1023px) == */
+@include medium {}
+
+/* === For Large Device ( 1024px - 1200px) == */
+@include large {}

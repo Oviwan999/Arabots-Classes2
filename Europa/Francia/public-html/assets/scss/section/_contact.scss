@@ -1,0 +1,145 @@
+// Contact Section Starts Here
+.contact {
+    &-info {
+        p {
+            font-size: 18px;
+            color: #404040;
+            line-height: 30px;
+            max-width: 329px;
+            margin-bottom: 0 !important;
+        }
+
+        &__text {
+            margin-top: 50px;
+
+            h6 {
+                color: #1F2020;
+                font-size: 34px;
+                line-height: 44px;
+                font-weight: 600;
+            }
+
+            p {
+                color: #404040;
+                font-size: 20px;
+                line-height: 30px;
+            }
+        }
+
+        &__links {
+            margin-top: 50px;
+
+            h6 {
+                font-size: 34px;
+                color: #1F2020;
+                line-height: 44px;
+                font-weight: 600;
+            }
+
+            a {
+                margin-right: 30px;
+
+                &:nth-last-of-type(1) {
+                    margin-right: 0;
+                }
+
+                &:hover {
+                    svg {
+                        transition: 0.3s all linear;
+                        transform: scale(1.5);
+
+                        path {
+                            transition: 0.3s all linear;
+                            fill: #CC58CB !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Contact Section Ends Here
+
+// Responsive
+/* === For Small Device ( 0px - 767px) == */
+@include small {
+    .contact-info {
+        text-align: center;
+
+        p {
+            font-size: 14px;
+            line-height: 22px;
+            max-width: 100%;
+        }
+
+        &__text {
+            margin-top: 25px;
+        }
+
+        &__text {
+            h6 {
+                font-size: 20px;
+                line-height: 28px;
+                margin-bottom: 3px;
+            }
+        }
+
+        &__links {
+            margin-top: 25px;
+            margin-bottom: 30px;
+
+            h6 {
+                font-size: 20px;
+                line-height: 28px;
+                margin-bottom: 10px;
+            }
+        }
+
+    }
+
+    .contact {
+        padding-bottom: 35px;
+    }
+
+    .contact-form {
+        order: 2;
+        text-align: center;
+
+        form {
+            input {
+                height: 50px;
+                margin-bottom: 25px;
+            }
+
+            textarea {
+                height: 110px;
+                margin-bottom: 25px;
+            }
+        }
+    }
+
+
+}
+
+/* === For Extra small Device ( 320px - 575px) == */
+@include ex_small {}
+
+/* === For Medium Device ( 768px - 1023px) == */
+@include medium {
+    .contact {
+        padding-bottom: 50px;
+    }
+
+    .contact-info__links h6,
+    .contact-info__text h6 {
+        font-size: 30px;
+    }
+}
+
+/* === For Large Device ( 1024px - 1200px) == */
+@include large {
+    .contact {
+        padding-bottom: 50px;
+    }
+}
