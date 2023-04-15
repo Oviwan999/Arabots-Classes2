@@ -12,7 +12,7 @@ from google.cloud import vision
 client = vision.ImageAnnotatorClient()
 
 #le damos el nombre del file que vamos a mandar analizar
-file_name = os.path.abspath('catapillar-damage-to-leaves.jpg')
+file_name = os.path.abspath('Space Invaiders/catapillar-damage-to-leaves.jpg')
 
 # cargamos la imagen a memoria
 with io.open(file_name, 'rb') as image_file:
