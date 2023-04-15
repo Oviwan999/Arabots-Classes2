@@ -4,7 +4,8 @@ class Personaje:
 
 
 harry_potter = Personaje()
-
+print(harry_potter)
+print(Personaje)
 #solucion2
 class Dinosaurio:
     pass
@@ -25,40 +26,62 @@ class Casa:
     def __init__(self, color, cantidad_pisos):
         self.color = color
         self.cantidad_pisos = cantidad_pisos
+    def __len__(self):
+        return self.cantidad_pisos
 
 
-casa_blanca = Casa("blanco", 4)
-
+casa_blanca = Casa("blanco",4)
+print(casa_blanca.color)
+print(casa_blanca.cantidad_pisos)
+print(len(casa_blanca))
+casa_Roja = Casa(6,5000)
+print(casa_Roja.color)
+print(casa_Roja.cantidad_pisos)
+print(len(casa_Roja))
 #solucion5
 class Cubo:
-    caras = 6
+    caras = 99
 
     def __init__(self, color):
         self.color = color
 
 
 cubo_rojo = Cubo("rojo")
-
+print(cubo_rojo.caras)
 #solucion6
 class Personaje:
-    real = False
 
-    def __init__(self, especie, magico, edad):
-        self.especie = especie
-        self.magico = magico
-        self.edad = edad
+    def __init__(self, especie, magico, edad,real):
+        self.real = real
+        if real == True:
+            self.especie = 0
+            self.magico = 0
+            self.edad = 0
+        else:
+            self.especie = especie
+            self.magico = magico
+            self.edad = edad
 
 
-harry_potter = Personaje("humano", True, 17)
-
+harry_potter = Personaje("humano", True, 17,False)
+Paquito = Personaje("humano","CANTAR",  18,True)
+print(Paquito.especie)
+if Paquito.real == True:
+    Paquito.magico= "cantar"
+print(Paquito.magico)
+print(Paquito.edad)
 #solucion7
 class Perro:
-    def ladrar(self):
-        print("Guau!")
+    def Motor(self,Dirrecion):
+        self.Direccion = Dirrecion
+        print(self.Direccion)
 
-
-pluto = Perro()
-pluto.ladrar()
+x=1
+Robots = Perro()
+if x==0:
+    Robots.Motor("Derecha")
+else:
+    Robots.Motor("Izquierda")
 
 #solucion8
 class Mago:
@@ -89,7 +112,9 @@ class Jugador:
     @classmethod
     def revivir(cls):
         cls.vivo = True
-
+print(Jugador.vivo)
+print(Jugador.revivir())
+print(Jugador.vivo)
 #solucion12
 class Personaje:
     def __init__(self, cantidad_flechas):
@@ -136,7 +161,9 @@ class Vehiculo:
 class Automovil(Vehiculo):
     pass
 
-
+ferrari = Automovil()
+ferrari.acelerar()
+ferrari.frenar()
 
 #solucion16
 class Padre():
@@ -148,14 +175,17 @@ class Padre():
 
 
 class Madre():
-    def trabajar(self):
+    def trabajar2(self):
         print("Trabajando en la Fiscalía")
 
 
 class Hija(Madre, Padre):
     pass
 
-
+yo = Hija()
+yo.trabajar()
+yo.reir()
+yo.trabajar2()
 #solucion17
 class Vertebrado():
     vertebrado = True
@@ -216,6 +246,7 @@ class Hijo(Padre):
 
 
 #solucion19
+print("Polimorfismo")
 palabra = "polimorfismo"
 lista = ["Clases", "POO", "Polimorfismo"]
 tupla = (1, 2, 3, 80)

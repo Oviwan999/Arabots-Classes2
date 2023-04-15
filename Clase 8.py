@@ -1,4 +1,4 @@
-#solucion1
+# solucion1
 """
 Ejemplo de resolución:
 
@@ -23,7 +23,7 @@ def suma(num1, num2):
         print("Error inesperado")
 
 
-#solucion2
+# solucion2
 """
 Ejemplo de resolución:
 
@@ -91,6 +91,7 @@ def abrir_archivo(nombre_archivo):
     finally:
         print("Finalizando ejecución")
 
+abrir_archivo("archivo.txt")
 
 #solucion4
 def secuencia_infinita():
@@ -101,7 +102,8 @@ def secuencia_infinita():
 
 
 generador = secuencia_infinita()
-
+print(next(generador))
+print(next(generador))
 #solucion5
 def multiplos_siete():
     num = 1
@@ -111,7 +113,10 @@ def multiplos_siete():
 
 
 generador = multiplos_siete()
+print(next(generador))
+print(next(generador))
 
+print(generador)
 #solucion6
 "Te quedan 3 vidas"
 "Te quedan 2 vidas"
@@ -134,3 +139,7 @@ def mensaje():
 
 
 perder_vida = mensaje()
+print(next(perder_vida))
+print(next(perder_vida))
+print(next(perder_vida))
+print(next(perder_vida))
