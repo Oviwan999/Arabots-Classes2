@@ -32,7 +32,7 @@ enemigo_x = []
 enemigo_y = []
 enemigo_x_cambio = []
 enemigo_y_cambio = []
-cantidad_enemigos = 8
+cantidad_enemigos = 1
 
 for e in range(cantidad_enemigos):
     img_enemigo.append(pygame.image.load("Space Invaiders/enemigo.png"))
