@@ -39,7 +39,7 @@ for e in range(cantidad_enemigos):
     enemigo_x.append(random.randint(0, 736))
     enemigo_y.append(random.randint(50, 200))
     enemigo_x_cambio.append(0.5)
-    enemigo_y_cambio.append(50)
+    enemigo_y_cambio.append(5)
 
 # variables de la bala
 img_bala = pygame.image.load("bala.png")
@@ -110,7 +110,7 @@ while se_ejecuta:
             if evento.key == pygame.K_RIGHT:
                 jugador_x_cambio = 0.5
             if evento.key == pygame.K_SPACE:
-                bala_sonido = mixer.Sound('Space Invaiders/disparo.mp3')
+                bala_sonido = mixer.Sound('disparo.mp3')
                 bala_sonido.set_volume(0.3)
                 bala_sonido.play()
                 if not bala_visible:
