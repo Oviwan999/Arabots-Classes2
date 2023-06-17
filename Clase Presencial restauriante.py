@@ -96,9 +96,34 @@ def total():
     var_total.set("$ "+str(round(total,2)))
 
 #definicion de recibo
+def recibo():
+    texto_recibo.delete(1.0,END)
+    num_recibo= f'N#'-{random.randint(1000,9999)}
+    fecha= datetime.datetime.now()
+    fecha_recibo=f'{fecha.day}/{fecha.month}/{fecha.year}-{fecha.hour}:{fecha.minute}''
+    texto_recibo.insert(END,f'Datos:t\t{num_recibo}\t\t{fecha_recibo}\n')
+    texto_recibo.insert(END,f'*'*47+'\n')
+    texto_recibo.insert(END,'Items\t\tCant.\tCosto Items\n')
+    texto_recibo.insert(END,f'-'* 54 + '\n')
 
+    x=0
 
+    for comida in texto_comida:
+        if comida.get()!='0':
+            texto_recibo.insert(END,f'{ lista_comidas[x]}\t\t{comida.get()}\t'
+                                f'${int(comida.get())* precios_comida}\n')
 
+    for bebida in texto_bebidas:
+        if bebida.get() != '0':
+            texto_recibo.insert(END, f'{lista_bebidas[x]}\t\t{bebida.get()}\t'
+                                     f'$ {int(bebida.get()) * precios_bebida[x]}\n')
+        x += 1
+
+    x = 0
+    for postres in texto_postres:
+        if postres.get() != '0':
+            texto_recibo.insert(END, f'{lista_postres[x]}\t\t{postres.get()}\t'
+                                     f'$ {int(postres.get()) * precios_postres[x]}\n')
 
 #iniciar app
 aplicacion = Tk()
