@@ -11,17 +11,17 @@ pantalla = pygame.display.set_mode((800, 600))
 
 # Titulo e Icono
 pygame.display.set_caption("Invasión Espacial")
-icono = pygame.image.load("Space Invaiders/ovni.png")
+icono = pygame.image.load("../Space Invaiders/ovni.png")
 pygame.display.set_icon(icono)
-fondo = pygame.image.load('Space Invaiders/Fondo.jpg')
+fondo = pygame.image.load('../Space Invaiders/Fondo.jpg')
 
 # agregar musica
-mixer.music.load('Space Invaiders/MusicaFondo.mp3')
+mixer.music.load('../Space Invaiders/MusicaFondo.mp3')
 mixer.music.set_volume(0.3)
 mixer.music.play(-1)
 
 # variables del Jugador
-img_jugador = pygame.image.load("Space Invaiders/cohete.png")
+img_jugador = pygame.image.load("../Space Invaiders/cohete.png")
 jugador_x = 368
 jugador_y = 500
 jugador_x_cambio = 0
@@ -35,14 +35,14 @@ enemigo_y_cambio = []
 cantidad_enemigos = 8
 
 for e in range(cantidad_enemigos):
-    img_enemigo.append(pygame.image.load("Space Invaiders/enemigo.png"))
+    img_enemigo.append(pygame.image.load("../Space Invaiders/enemigo.png"))
     enemigo_x.append(random.randint(0, 736))
     enemigo_y.append(random.randint(50, 200))
     enemigo_x_cambio.append(0.5)
     enemigo_y_cambio.append(50)
 
 # variables de la bala
-img_bala = pygame.image.load("Space Invaiders/bala.png")
+img_bala = pygame.image.load("../Space Invaiders/bala.png")
 bala_x = 0
 bala_y = 500
 bala_x_cambio = 0
@@ -51,12 +51,12 @@ bala_visible = False
 
 # puntaje
 puntaje = 0
-fuente = pygame.font.Font('fastest.ttf', 32)
+fuente = pygame.font.Font('Fastest.ttf', 32)
 texto_x = 10
 texto_y = 10
 
 # texto final de juego
-fuente_final = pygame.font.Font('fastest.ttf', 40)
+fuente_final = pygame.font.Font('Fastest.ttf', 40)
 
 
 def texto_final():
@@ -117,7 +117,7 @@ while se_ejecuta:
             if evento.key == pygame.K_RIGHT:
                 jugador_x_cambio = 1
             if evento.key == pygame.K_SPACE:
-                sonido_bala = mixer.Sound('Space Invaiders/disparo.mp3')
+                sonido_bala = mixer.Sound('../Space Invaiders/disparo.mp3')
                 sonido_bala.play()
                 if not bala_visible:
                     bala_x = jugador_x

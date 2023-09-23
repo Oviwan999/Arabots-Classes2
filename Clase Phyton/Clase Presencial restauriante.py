@@ -192,17 +192,17 @@ def resetear():
 aplicacion = Tk()
 aplicacion.geometry("1300x630+0+0")
 # No maximizar
-aplicacion.resizable(0, 0)
+aplicacion.resizable(1, 1)
 # titulo
 aplicacion.title("Restaurante")
 aplicacion.config(bg="DarkSlateGray")
 
 # panel superior
-panel_superior = Frame(aplicacion, bd=1, relief=FLAT)
+panel_superior = Frame(aplicacion, bd=1, relief=RAISED)
 panel_superior.pack(side=TOP)
 # titulos
 etiqueta_titulo = Label(panel_superior, text="Restaurante",
-                        font=("Arial", 30, "bold"), bg="DarkOrange4", width=27)
+                        font=("Arial", 30, "bold"), bg="DarkOrange4", width=10)
 etiqueta_titulo.grid(row=0, column=0)
 
 # panel izquierdo

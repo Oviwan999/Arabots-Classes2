@@ -2,7 +2,7 @@ import os
 from pathlib import Path
 from os import system
 
-mi_ruta = Path(Path.home(), "Recetas")
+mi_ruta = Path(Path.home(), "../Recetas")
 
 
 def contar_recetas(ruta):
