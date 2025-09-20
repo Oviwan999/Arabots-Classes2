@@ -1,1 +1,1 @@
-print("Juego dados")
+print("Juego dados+1")
