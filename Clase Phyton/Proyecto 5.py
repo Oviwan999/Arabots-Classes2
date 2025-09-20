@@ -7,7 +7,7 @@ letras_incorrectas = []
 vidas = 6
 aciertos = 0
 juego_terminado = False
-
+intentos = 0
 
 
 def elegir_palabra (lista_palabras):
@@ -49,7 +49,7 @@ def revisar_letra(letra_elegida, palabra_oculta, vidas,coincidencias):
         letras_incorrectas.append(letra_elegida)
         vidas -= 1
     if vidas == 0:
-        fin = perder ()
+        perder()
     elif coincidencias == letras_unicas:
         fin = ganar(palabra_oculta)
         return vidas, fin, coincidencias
