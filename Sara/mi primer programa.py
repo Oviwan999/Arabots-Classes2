@@ -1,0 +1,1 @@
+print("juego de dados")
