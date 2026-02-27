@@ -1,0 +1,24 @@
+Be Prepared to Stop
+Do Not Enter
+Left Curve Ahead
+Left Turn Only
+Left Turn Yield on Green
+No Left Turn
+No Parking Double Arrow
+No Parking Left Arrow
+No Parking No Arrow
+No Right Turn
+No Turn on Red
+No U Turn
+One Way Left
+One Way Right
+Pedestrian Crossing
+Right Curve Ahead
+Right Turn Only
+School Crossing
+Speed Limit 25mph
+Stop
+Straight or Left Turn Only
+Straight or Right Turn Only
+When Flashing
+Yield
