@@ -1,0 +1,30 @@
+path: "C:/git/Arabots-Classes2/Vision2026/Test"
+
+train: images/train
+val: images/val
+
+names:
+  0: Be Prepared to Stop
+  1: Do Not Enter
+  2: Left Curve Ahead
+  3: Left Turn Only
+  4: Left Turn Yield on Green
+  5: No Left Turn
+  6: No Parking Double Arrow
+  7: No Parking Left Arrow
+  8: No Parking No Arrow
+  9: No Right Turn
+  10: No Turn on Red
+  11: No U Turn
+  12: One Way Left
+  13: One Way Right
+  14: Pedestrian Crossing
+  15: Right Curve Ahead
+  16: Right Turn Only
+  17: School Crossing
+  18: Speed Limit
+  19: Stop
+  20: Straight or Left Turn Only
+  21: Straight or Right Turn Only
+  22: When Flashing
+  23: Yield

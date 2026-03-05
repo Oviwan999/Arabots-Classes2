@@ -1,0 +1,105 @@
+{
+  "categories": [
+    {
+      "id": 0,
+      "name": "Be Prepared to Stop"
+    },
+    {
+      "id": 1,
+      "name": "Do Not Enter"
+    },
+    {
+      "id": 2,
+      "name": "Left Curve Ahead"
+    },
+    {
+      "id": 3,
+      "name": "Left Turn Only"
+    },
+    {
+      "id": 4,
+      "name": "Left Turn Yield on Green"
+    },
+    {
+      "id": 5,
+      "name": "No Left Turn"
+    },
+    {
+      "id": 6,
+      "name": "No Parking Double Arrow"
+    },
+    {
+      "id": 7,
+      "name": "No Parking Left Arrow"
+    },
+    {
+      "id": 8,
+      "name": "No Parking No Arrow"
+    },
+    {
+      "id": 9,
+      "name": "No Right Turn"
+    },
+    {
+      "id": 10,
+      "name": "No Turn on Red"
+    },
+    {
+      "id": 11,
+      "name": "No U Turn"
+    },
+    {
+      "id": 12,
+      "name": "One Way Left"
+    },
+    {
+      "id": 13,
+      "name": "One Way Right"
+    },
+    {
+      "id": 14,
+      "name": "Pedestrian Crossing"
+    },
+    {
+      "id": 15,
+      "name": "Right Curve Ahead"
+    },
+    {
+      "id": 16,
+      "name": "Right Turn Only"
+    },
+    {
+      "id": 17,
+      "name": "School Crossing"
+    },
+    {
+      "id": 18,
+      "name": "Speed Limit 25mph"
+    },
+    {
+      "id": 19,
+      "name": "Stop"
+    },
+    {
+      "id": 20,
+      "name": "Straight or Left Turn Only"
+    },
+    {
+      "id": 21,
+      "name": "Straight or Right Turn Only"
+    },
+    {
+      "id": 22,
+      "name": "When Flashing"
+    },
+    {
+      "id": 23,
+      "name": "Yield"
+    }
+  ],
+  "info": {
+    "year": 2026,
+    "version": "1.0",
+    "contributor": "Label Studio"
+  }
+}
