@@ -16,12 +16,12 @@ def hablar_nativo(texto):
         except:
             pass
 
-    threading.Thread(target=proceso, daemon=True).start()
+    threading.Thread(target=proceso, daemon=True).start() # crea un hilo de procesamiento para la voz, evitando bloqueos en la IA
 
 
 # --- 2. CLASE DE CONTROL DE ESTADOS ---
 class RobotVision:
-    def __init__(self, engine_path):
+    def __init__(self, engine_path): #Define el inicio del programa, cargando el modelo y estableciendo variables de control
         self.frame_ia = None
         self.anotaciones = None
         self.corriendo = True
@@ -47,7 +47,7 @@ class RobotVision:
         }
         self.conf_default = 0.50
 
-    def hilo_ia(self):
+    def hilo_ia(self): #IA corrinedo y Analizis de frames, con lógica de memoria para voz y dibujo manual de anotaciones
         while self.corriendo:
             if self.frame_ia is not None:
                 frame_copy = self.frame_ia.copy()
@@ -119,7 +119,7 @@ while cap.isOpened():
     robot.frame_ia = frame
     display_frame = robot.anotaciones if robot.anotaciones is not None else frame
 
-    cv2.imshow("Arabots 2026 - Novi Engine Precision Mode", display_frame)
+    cv2.imshow("Arabots 2026 - Lamborgini", display_frame)
 
     if cv2.waitKey(1) & 0xFF == ord("q"):
         robot.corriendo = False
