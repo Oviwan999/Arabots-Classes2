@@ -365,7 +365,7 @@ class ArabotsCore(threading.Thread):
                                     canales = self.servo_channels[nombre]
 
                                     if "X" in canales:
-                                        ax = self.map_to_servo(pos.x, ref['x'] - rango_x, ref['x'] + rango_x)
+                                        ax = int((pos.x - (ref['x'] - rango_x)) * (0 - 180) / ((ref['x'] + rango_x) - (ref['x'] - rango_x)) + 180)
                                         self.pca.set_angle(canales["X"], ax, smoothing=alpha_ema)
                                     if "Y" in canales:
                                         if nombre == "CABEZA":
