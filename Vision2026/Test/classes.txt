@@ -16,7 +16,7 @@ Pedestrian Crossing
 Right Curve Ahead
 Right Turn Only
 School Crossing
-Speed Limit
+Speed Limit 25mph
 Stop
 Straight or Left Turn Only
 Straight or Right Turn Only

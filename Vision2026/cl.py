@@ -36,7 +36,7 @@ class RobotVisionCarpeta:
             self.corriendo = False
 
         # Cargar modelo (Aprovechando tu RTX 4060)
-        self.model = YOLO(r'C:\git\Arabots-Classes2\Vision2026\runs\detect\Vision2026_v22\weights\best.pt')
+        self.model = YOLO(r'C:\git\Arabots-Classes2\Vision2026\runs\detect\Arabots_RTDETR_2026\RTDETR_L_Novi_V1\weights\best.pt')
 
     def procesar_imagen_actual(self):
         """Carga la imagen actual y ejecuta la IA una sola vez."""

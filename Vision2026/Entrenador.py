@@ -10,7 +10,7 @@ if __name__ == "__main__":
         data=r"C:\git\Arabots-Classes2\Vision2026\data.yaml",
         epochs=150,
         imgsz=1024,
-        batch=16,
+        batch=8,
         augment=True,
         degrees=15,
         perspective=0.0001,

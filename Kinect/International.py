@@ -9,6 +9,9 @@ from PIL import Image
 from pykinect2 import PyKinectRuntime, PyKinectV2
 from telemetrix import telemetrix
 
+# Cambia esto a tu puerto, por ejemplo "COM3", si Telemetrix no lo detecta solo.
+ARDUINO_PORT = None
+
 # --- PARCHES DE COMPATIBILIDAD PYTHON 3.10+ ---
 if not hasattr(time, 'clock'):
     time.clock = time.perf_counter
@@ -116,6 +119,10 @@ class ArabotsCore(threading.Thread):
         self.last_update_time = time.time()
         self.calibration_start_time = None
         self.current_matrix_text = ""
+        self._bodies = None
+        self.board = None
+        self.pca = None
+        self.arduino_ok = False
 
         # Variables para la animación de la Estrella
         self.star_animation_start = 0
@@ -143,37 +150,50 @@ class ArabotsCore(threading.Thread):
         self._kinect.bodies = numpy.ndarray((6), dtype=object)
 
         print("Iniciando Arduino...")
-        self.board = telemetrix.Telemetrix()
+        try:
+            if ARDUINO_PORT:
+                self.board = telemetrix.Telemetrix(com_port=ARDUINO_PORT)
+            else:
+                self.board = telemetrix.Telemetrix()
+            self.arduino_ok = True
+        except Exception as exc:
+            print(f"ADVERTENCIA: Arduino/Telemetrix no disponible: {exc}")
+            print("La interfaz seguira funcionando sin servos. Sube Telemetrix4Arduino al Arduino o configura ARDUINO_PORT.")
+            self.board = None
 
         def ignora_ruido(*args, **kwargs):
             pass
 
-        self.board.spi_callback = ignora_ruido
-        if hasattr(self.board, 'report_dispatch'):
-            for i in range(256):
-                if i not in self.board.report_dispatch or self.board.report_dispatch[i] is None:
-                    self.board.report_dispatch[i] = ignora_ruido
-        self.board.dht_callbacks = collections.defaultdict(lambda: ignora_ruido)
-        self.board.sonar_callbacks = collections.defaultdict(lambda: ignora_ruido)
+        if self.board is not None:
+            self.board.spi_callback = ignora_ruido
+            if hasattr(self.board, 'report_dispatch'):
+                for i in range(256):
+                    if i not in self.board.report_dispatch or self.board.report_dispatch[i] is None:
+                        self.board.report_dispatch[i] = ignora_ruido
+            self.board.dht_callbacks = collections.defaultdict(lambda: ignora_ruido)
+            self.board.sonar_callbacks = collections.defaultdict(lambda: ignora_ruido)
 
-        self.board.set_pin_mode_digital_output(13)
-        self.pca = PCA9685_Controller(self.board)
-
-        self.set_matrix_text(self.gui.get_msg_ready(), 60)
-        self.go_to_rest_pose()
+            self.board.set_pin_mode_digital_output(13)
+            self.pca = PCA9685_Controller(self.board)
+            self.set_matrix_text(self.gui.get_msg_ready(), 60)
+            self.go_to_rest_pose()
 
     def set_matrix_text(self, text, scroll_speed=50):
         if text == self.current_matrix_text: return
         self.current_matrix_text = text
+        if self.board is None:
+            return
         text_clean = str(text).upper().strip()[:25]
         payload = [58, len(text_clean), scroll_speed] + [ord(c) for c in text_clean]
         if hasattr(self.board, '_send_command'):
             try:
                 self.board._send_command(payload)
-            except:
+            except Exception:
                 pass
 
     def go_to_rest_pose(self):
+        if self.pca is None:
+            return
         for part, channels in self.servo_channels.items():
             if "X" in channels: self.pca.set_angle(channels["X"], 90)
             if "Y" in channels:
@@ -358,7 +378,7 @@ class ArabotsCore(threading.Thread):
                             alpha_ema = 1.0 - (raw_smooth * 0.95)
 
                             current_time = time.time()
-                            if current_time - self.last_update_time > update_delay:
+                            if self.pca is not None and current_time - self.last_update_time > update_delay:
                                 for nombre, jt_id in self.puntos.items():
                                     pos = joints[jt_id].Position
                                     ref = self.calibrated_refs[nombre]
@@ -462,8 +482,9 @@ class ArabotsCore(threading.Thread):
             time.sleep(0.01)
 
         print("Cerrando hardware...")
-        self.set_matrix_text(" ", 0)
-        self.board.shutdown()
+        if self.board is not None:
+            self.set_matrix_text(" ", 0)
+            self.board.shutdown()
         self._kinect.close()
 
 
@@ -479,6 +500,7 @@ class ArabotsGUI(ctk.CTk):
         super().__init__()
         self.title("Arabots Puppet Master - International Competition Edition")
         self.geometry("1200x800")
+        self.minsize(1000, 700)
 
         self.current_lang = "es"
         self.video_size = (960, 540)
@@ -511,15 +533,23 @@ class ArabotsGUI(ctk.CTk):
         self.tab_settings = self.tabview.add("Ajustes y Calibración")
 
         # --- TAB 1: MONITOR ---
-        self.video_label = ctk.CTkLabel(self.tab_monitor, text="Iniciando Cámara Kinect...")
-        self.video_label.pack(padx=5, pady=5, expand=True, fill="both")
-        self.video_label.bind("<Configure>", self.on_video_resize)
+        self.tab_monitor.grid_columnconfigure(0, weight=1)
+        self.tab_monitor.grid_rowconfigure(0, weight=1)
+        self.tab_monitor.grid_rowconfigure(1, weight=0)
+        self.tab_monitor.grid_rowconfigure(2, weight=0)
 
-        self.status_frame = ctk.CTkFrame(self.tab_monitor, fg_color="#1F2937", corner_radius=10, height=50)
-        self.status_frame.pack_propagate(False)
-        self.status_frame.pack(fill="x", padx=10, pady=5)
+        self.video_frame = ctk.CTkFrame(self.tab_monitor, fg_color="#111827", corner_radius=8)
+        self.video_frame.grid(row=0, column=0, sticky="nsew", padx=10, pady=(10, 5))
+        self.video_frame.grid_propagate(False)
+        self.video_frame.bind("<Configure>", self.on_video_resize)
 
-        # TEXTO CENTRADO ABSOLUTO
+        self.video_label = ctk.CTkLabel(self.video_frame, text="Iniciando Camara Kinect...")
+        self.video_label.place(relx=0.5, rely=0.5, anchor="center")
+
+        self.status_frame = ctk.CTkFrame(self.tab_monitor, fg_color="#1F2937", corner_radius=10, height=54)
+        self.status_frame.grid(row=1, column=0, sticky="ew", padx=10, pady=(0, 6))
+        self.status_frame.grid_propagate(False)
+
         self.status_label = ctk.CTkLabel(self.status_frame, text="INICIANDO...", font=("Arial", 18, "bold"),
                                          text_color="#38BDF8")
         self.status_label.place(relx=0.5, rely=0.5, anchor="center")
@@ -527,23 +557,26 @@ class ArabotsGUI(ctk.CTk):
         self.progress_bar = ctk.CTkProgressBar(self.status_frame, width=200, progress_color="#22C55E",
                                                fg_color="#374151")
         self.progress_bar.set(0)
-        self.progress_bar.pack(side="right", padx=20, pady=10)
-        self.progress_bar.pack_forget()
+        self.progress_bar.place(relx=0.98, rely=0.5, anchor="e")
+        self.progress_bar.place_forget()
 
-        self.action_frame = ctk.CTkFrame(self.tab_monitor, fg_color="transparent")
-        self.action_frame.pack(fill="x", padx=10, pady=5)
+        self.action_frame = ctk.CTkFrame(self.tab_monitor, fg_color="transparent", height=52)
+        self.action_frame.grid(row=2, column=0, sticky="ew", padx=10, pady=(0, 10))
+        self.action_frame.grid_columnconfigure(0, weight=1)
+        self.action_frame.grid_columnconfigure(1, weight=1)
+        self.action_frame.grid_propagate(False)
 
         self.btn_release = ctk.CTkButton(self.action_frame, text="Soltar Objetivo / Release",
                                          fg_color="#F59E0B", hover_color="#D97706",
                                          font=("Arial", 14, "bold"), height=40,
                                          command=self.cmd_release)
-        self.btn_release.pack(side="left", padx=10, expand=True, fill="x")
+        self.btn_release.grid(row=0, column=0, sticky="ew", padx=(0, 10), pady=6)
 
         self.btn_reset = ctk.CTkButton(self.action_frame, text="Reinicio Total / Hard Reset",
                                        fg_color="#EF4444", hover_color="#DC2626",
                                        font=("Arial", 14, "bold"), height=40,
                                        command=self.cmd_reset)
-        self.btn_reset.pack(side="right", padx=10, expand=True, fill="x")
+        self.btn_reset.grid(row=0, column=1, sticky="ew", padx=(10, 0), pady=6)
 
         # --- TAB 2: AJUSTES ---
         frame_cam = ctk.CTkFrame(self.tab_settings)
@@ -605,7 +638,7 @@ class ArabotsGUI(ctk.CTk):
         self.protocol("WM_DELETE_WINDOW", self.on_closing)
 
     def on_video_resize(self, event):
-        w, h = event.width, event.height
+        w, h = event.width - 20, event.height - 20
         if w > 20 and h > 20:
             target_ratio = 16 / 9
             current_ratio = w / h
@@ -615,7 +648,7 @@ class ArabotsGUI(ctk.CTk):
             else:
                 new_w = w
                 new_h = int(w / target_ratio)
-            self.video_size = (new_w, new_h)
+            self.video_size = (max(320, new_w), max(180, new_h))
 
     def change_language(self, lang_code):
         self.current_lang = lang_code
@@ -677,9 +710,9 @@ class ArabotsGUI(ctk.CTk):
 
         if calib_progress > 0:
             self.progress_bar.set(calib_progress)
-            self.progress_bar.pack(side="right", padx=20, pady=10)
+            self.progress_bar.place(relx=0.98, rely=0.5, anchor="e")
         else:
-            self.progress_bar.pack_forget()
+            self.progress_bar.place_forget()
 
     def on_closing(self):
         print("Solicitando cierre...")

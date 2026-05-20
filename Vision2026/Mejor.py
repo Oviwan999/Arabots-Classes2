@@ -30,7 +30,7 @@ class RobotVision:
 
     def hilo_ia(self):
         # Cargamos el modelo una sola vez
-        model = YOLO(r'C:\git\Arabots-Classes2\Vision2026\runs\detect\Vision2026_v23\weights\best.pt') #modelo creado por ustedes
+        model = YOLO(r'C:\git\Arabots-Classes2\Vision2026\runs\detect\Arabots_RTDETR_2026\RTDETR_L_Novi_V1\weights\best.pt') #modelo creado por ustedes
 
         while self.corriendo:
             if self.frame_ia is not None:
